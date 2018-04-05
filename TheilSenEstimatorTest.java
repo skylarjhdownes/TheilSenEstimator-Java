@@ -87,6 +87,6 @@ public class TheilSenEstimatorTest {
         TheilSenEstimator instance = new TheilSenEstimator();
         instance.process(points);
         assertEquals(2.0, instance.getThielSenSlope(), 0.01);
-        assertEquals(1.0, instance.getThielSenYIntercept(), 0.01);
+        assertEquals(-1.0, instance.getThielSenYIntercept(), 0.01);
     }
 }
