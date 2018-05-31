@@ -15,7 +15,6 @@ public class TheilSenEstimator
 
     public void process(List<Point2D> points){
         List<Double> slopes = calcSlopes(points);
-        DoubleStream thing = slopes.stream().mapToDouble(d -> d);
         _medianSlope = StatUtils.percentile(slopes.stream().mapToDouble(d -> d).toArray(), 50);
         List<Double> intercepts = calcIntercepts(points, _medianSlope);
         _medianYIntercept = StatUtils.percentile(intercepts.stream().mapToDouble(d -> d).toArray(), 50);
