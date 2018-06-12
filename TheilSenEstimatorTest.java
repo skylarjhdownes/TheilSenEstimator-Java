@@ -11,19 +11,19 @@ public class TheilSenEstimatorTest {
 
     @Test
     public void calcSlopesShouldReturnASlope() {
-        List<Point2D> points = new ArrayList(){
+        List<Point2D> points = new ArrayList<Point2D>(){
             {
                 add(new Point2D.Double(1.0, 1.0));
                 add(new Point2D.Double(2.0, 2.0));
             }
         };
         TheilSenEstimator instance = new TheilSenEstimator();
-        assertEquals(new ArrayList(){{add(1.0);}}, instance.calcSlopes(points));
+        assertEquals(new ArrayList<Double>(){{add(1.0);}}, instance.calcSlopes(points));
     }
 
     @Test
     public void calcSlopesShouldReturnSeveralSlopes() {
-        List<Point2D> points = new ArrayList(){
+        List<Point2D> points = new ArrayList<Point2D>(){
             {
                 add(new Point2D.Double(1.0, 1.0));
                 add(new Point2D.Double(2.0, 2.0));
@@ -31,12 +31,12 @@ public class TheilSenEstimatorTest {
             }
         };
         TheilSenEstimator instance = new TheilSenEstimator();
-        assertEquals(new ArrayList(){{add(1.0);add(2.0);add(3.0);}}, instance.calcSlopes(points));
+        assertEquals(new ArrayList<Double>(){{add(1.0);add(2.0);add(3.0);}}, instance.calcSlopes(points));
     }
 
     @Test
     public void calcSlopesShouldHandleMultiplePointsInTheSameX() {
-        List<Point2D> points = new ArrayList(){
+        List<Point2D> points = new ArrayList<Point2D>(){
             {
                 add(new Point2D.Double(1.0, 1.0));
                 add(new Point2D.Double(2.0, 2.0));
@@ -45,25 +45,25 @@ public class TheilSenEstimatorTest {
             }
         };
         TheilSenEstimator instance = new TheilSenEstimator();
-        assertEquals(new ArrayList(){{add(1.0);add(0.0);add(-1.0);}}, instance.calcSlopes(points));
+        assertEquals(new ArrayList<Double>(){{add(1.0);add(0.0);add(-1.0);}}, instance.calcSlopes(points));
     }
 
 
     @Test
     public void calcInterceptsShouldReturnAYIntercept() {
-        List<Point2D> points = new ArrayList(){
+        List<Point2D> points = new ArrayList<Point2D>(){
             {
                 add(new Point2D.Double(1.0, 1.0));
             }
         };
         double medianSlope = 2;
         TheilSenEstimator instance = new TheilSenEstimator();
-        assertEquals(new ArrayList(){{add(-1.0);}}, instance.calcIntercepts(points, medianSlope));
+        assertEquals(new ArrayList<Double>(){{add(-1.0);}}, instance.calcIntercepts(points, medianSlope));
     }
 
     @Test
     public void calcInterceptsShouldReturnSeveralYIntercepts() {
-        List<Point2D> points = new ArrayList(){
+        List<Point2D> points = new ArrayList<Point2D>(){
             {
                 add(new Point2D.Double(1.0, 1.0));
                 add(new Point2D.Double(2.0, 2.0));
@@ -72,12 +72,12 @@ public class TheilSenEstimatorTest {
         };
         double medianSlope = 2;
         TheilSenEstimator instance = new TheilSenEstimator();
-        assertEquals(new ArrayList(){{add(-1.0);add(-2.0);add(-1.0);}}, instance.calcIntercepts(points, medianSlope));
+        assertEquals(new ArrayList<Double>(){{add(-1.0);add(-2.0);add(-1.0);}}, instance.calcIntercepts(points, medianSlope));
     }
 
     @Test
     public void processShouldGiveASlopeAndYIntercept() {
-        List<Point2D> points = new ArrayList(){
+        List<Point2D> points = new ArrayList<Point2D>(){
             {
                 add(new Point2D.Double(1.0, 1.0));
                 add(new Point2D.Double(2.0, 2.0));
