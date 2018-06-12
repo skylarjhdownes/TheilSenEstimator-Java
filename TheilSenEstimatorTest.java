@@ -85,8 +85,28 @@ public class TheilSenEstimatorTest {
             }
         };
         TheilSenEstimator instance = new TheilSenEstimator();
-        instance.process(points);
+        try {
+            instance.process(points);
+        } catch(TheilSenEstimator.InsufficientXCoordinatesException e) {}
         assertEquals(2.0, instance.getThielSenSlope(), 0.01);
         assertEquals(-1.0, instance.getThielSenYIntercept(), 0.01);
+    }
+
+    @Test
+    public void processShouldHandleAllPointsHavingTheSameX() {
+        List<Point2D> points = new ArrayList<Point2D>(){
+            {
+                add(new Point2D.Double(1.0, 1.0));
+                add(new Point2D.Double(1.0, 2.0));
+                add(new Point2D.Double(1.0, 3.0));
+            }
+        };
+        TheilSenEstimator instance = new TheilSenEstimator();
+
+        try {
+            instance.process(points);
+        } catch(TheilSenEstimator.InsufficientXCoordinatesException e) {
+            assertEquals("Theil-Sen estimation requires at least two points with differing x coordinates.", e.getMessage());
+        }
     }
 }

@@ -1,7 +1,6 @@
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.DoubleStream;
 import org.apache.commons.math3.stat.StatUtils;
 
 public class TheilSenEstimator
@@ -13,14 +12,15 @@ public class TheilSenEstimator
 
     }
 
-    public void process(List<Point2D> points){
+    public void process(List<Point2D> points) throws InsufficientXCoordinatesException {
         List<Double> slopes = calcSlopes(points);
         _medianSlope = StatUtils.percentile(slopes.stream().mapToDouble(d -> d).toArray(), 50);
+        if (Double.isNaN(_medianSlope)){
+            throw new InsufficientXCoordinatesException();
+        }
         List<Double> intercepts = calcIntercepts(points, _medianSlope);
         _medianYIntercept = StatUtils.percentile(intercepts.stream().mapToDouble(d -> d).toArray(), 50);
-    //TODO: Handle empty lists, ex: when all the points have the same X value.
     }
-
 
     List calcSlopes(List<Point2D> points){
         List slopes = new ArrayList();
@@ -47,7 +47,12 @@ public class TheilSenEstimator
     Double getThielSenYIntercept(){
         return _medianYIntercept;
     }
+
+    static class InsufficientXCoordinatesException extends Exception
+    {
+        @Override
+        public String getMessage(){
+            return "Theil-Sen estimation requires at least two points with differing x coordinates.";
+        }
+    }
 }
-
-
-
